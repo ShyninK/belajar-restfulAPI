@@ -1,20 +1,14 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
 
-//import body parser
-const bodyParser = require('body-parser')
+app.use(express.json());
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+// biar bisa baca x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
-// parse application/json
-app.use(bodyParser.json())
+const postRoutes = require('../belajar-api/src/routes/routePosts');
 
-//import route posts
-const postsRouter = require('./routes/posts');
-app.use('/api/posts', postsRouter); // use route posts di Express
+app.use(express.json());
+app.use('/posts', postRoutes);
 
-app.listen(port, () => {
-  console.log(`app running at http://localhost:${port}`)
-})
+app.listen(3000, () => console.log('Server running on port 3000'));
